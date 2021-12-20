@@ -1,3 +1,5 @@
 /venv/
 .idea
 app.conf
+/uploads/
+/static/
