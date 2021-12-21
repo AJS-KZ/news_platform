@@ -8,9 +8,9 @@ services:
     hostname: app
 
     volumes:
-      - ./volumes/static:/static
-      - ./volumes/media:/media
-      - ./volumes/logs:/logs
+      - ./app/static:/static
+      - ./app/media:/media
+      - ./app/logs:/logs
       - ./app:/code
     ports:
       - 8000:8000
