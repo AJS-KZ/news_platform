@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from posts.models import Post, Comment
+from posts.models import Post, Comment, Vote
 
 
 class CommentAdminInLine(admin.StackedInline):
@@ -14,3 +14,13 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [
         CommentAdminInLine,
     ]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Vote)
+class VoteAdmin(admin.ModelAdmin):
+    pass

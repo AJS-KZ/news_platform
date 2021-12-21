@@ -50,4 +50,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin, AbstractUUID, AbstractTimeT
         ordering = ('uuid', )
 
     def __str__(self):
-        return self.first_name+" "+self.last_name
+        return self.email+" "+self.first_name+" "+self.last_name

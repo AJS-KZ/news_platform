@@ -1,11 +1,11 @@
 from django.http import Http404
-from rest_framework import viewsets, mixins, status, views
+from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters import rest_framework as filters
 
 from posts.models import Post
-from posts.serializers import PostSerializer, PostCreateSerializer
+from posts.serializers import PostSerializer, PostCreateUpdateSerializer
 from posts.permissions import PostOwnerOrReadOnly
 from posts.filters import PostFilterSet
 
@@ -15,8 +15,7 @@ class PostViewSet(mixins.CreateModelMixin,
                   mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.DestroyModelMixin,
-                  viewsets.GenericViewSet,):
-
+                  viewsets.GenericViewSet, ):
     serializer_class = PostSerializer
     permission_classes = [AllowAny, ]
     queryset = Post.objects.all()
@@ -37,25 +36,25 @@ class PostViewSet(mixins.CreateModelMixin,
     def get_serializer_class(self):
         serializer_class = PostSerializer
 
-        if self.action == 'create':
-            serializer_class = PostCreateSerializer
+        if self.action == 'create' or self.action == 'update' or self.action == 'partial_update':
+            serializer_class = PostCreateUpdateSerializer
 
         return serializer_class
 
     def list(self, request, *args, **kwargs):
         filtered_queryset = self.filter_queryset(self.queryset.all())
         serializer = self.get_serializer(filtered_queryset, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def get_object(self):
         uuid = self.kwargs['pk']
         try:
             instance = self.queryset.get(uuid=uuid)
             return instance
-        except:
+        except Exception:
             raise Http404

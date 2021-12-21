@@ -1,9 +1,11 @@
 from rest_framework import serializers
 
 from posts.models import Post
+from users.serializers import CustomUserAuthorSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
+    author = CustomUserAuthorSerializer()
 
     class Meta:
         model = Post
@@ -14,12 +16,12 @@ class PostSerializer(serializers.ModelSerializer):
             'votes_count',
             'author',
             'created_at',
-            'updated_at'
-            'comments'
+            'updated_at',
+            'comments',
         )
 
 
-class PostCreateSerializer(serializers.ModelSerializer):
+class PostCreateUpdateSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
