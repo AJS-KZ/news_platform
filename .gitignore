@@ -3,3 +3,7 @@
 app.conf
 /app/uploads/
 /app/static/
+
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
