@@ -12,7 +12,7 @@ class Post(AbstractUUID, AbstractTimeTracker):
         max_length=1000,
         verbose_name='Link'
     )
-    votes = models.IntegerField(
+    votes_count = models.IntegerField(
         default=0,
         verbose_name='Votes Count'
     )

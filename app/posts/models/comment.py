@@ -11,12 +11,14 @@ class Comment(AbstractUUID, AbstractTimeTracker):
     post = models.ForeignKey(
         'posts.Post',
         on_delete=models.CASCADE,
-        verbose_name='Post'
+        verbose_name='Post',
+        related_name='comments'
     )
     author = models.ForeignKey(
         'users.CustomUser',
         on_delete=models.CASCADE,
-        verbose_name='Comment Owner'
+        verbose_name='Comment Owner',
+        related_name='comments'
     )
 
     class Meta:
