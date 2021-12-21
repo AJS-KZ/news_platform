@@ -1,5 +1,6 @@
 /venv/
 .idea
+/volumes/
 
 /app/uploads/
 /app/static/
