@@ -6,12 +6,11 @@ services:
       context: .
       dockerfile: ./docker/app/Dockerfile
     hostname: app
-
     volumes:
-      - ./app/static:/static
-      - ./app/media:/media
-      - ./app/logs:/logs
-      - ./app:/code
+      - static:/code/static
+      - media:/code/media
+      - logs:/code/logs
+      - ./app:/code/
     ports:
       - 8000:8000
     env_file:
@@ -34,7 +33,7 @@ services:
 
   redis:
     image: redis:6.0.9
-    command: redis-server /volumes/redis/redis.conf
+    command: redis-server /redis/redis.conf
     hostname: redis
     env_file:
       - env/redis
@@ -42,7 +41,7 @@ services:
       - "6379:6379"
     volumes:
       - ./volumes/redis:/data
-      - ./redis.conf:/volumes/redis/redis.conf
+      - ./redis.conf:/redis/redis.conf
     networks:
       - np-dev
 
@@ -55,7 +54,7 @@ services:
       - env/worker
     volumes:
       - ./app:/code
-      - ./volumes/logs:/logs
+      - logs:/logs
     depends_on:
       - redis
       - db
@@ -65,4 +64,9 @@ services:
 networks:
   np-dev:
     driver: bridge
+
+volumes:
+  static:
+  media:
+  logs:
 
