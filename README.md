@@ -25,5 +25,5 @@ URLs:
 
 FYI:
 1. Posts redactor and destroy possible for post's author (you can check it in "posts" app's permissions file)
-2. Comments redactor and destroy possible for comment's author, also comment can be deleted by the author of the post 
+2. Comments update and destroy possible for comment's author, also comment can be deleted by the author of the post 
    to which the comment relates (you can check it in "posts" app's permissions file)
